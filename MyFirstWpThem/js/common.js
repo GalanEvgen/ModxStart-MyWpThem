@@ -12,7 +12,7 @@ $(function () {
 	
 	
 
-	$(".top-text h1").animated("fadeIn", "fadeOutUp");
+	$(".top-text h1").animated("fadeInDown", "fadeOutUp");
 	$(".top-text p").animated("fadeInUp", "fadeOutDown");
 	$(".section-header").animated("fadeInUp", "fadeOutDown");
 

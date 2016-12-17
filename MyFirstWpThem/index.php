@@ -2,9 +2,15 @@
 
 <section id="about" class="s-about">
 	<div class="section-header">
-		<h2>Обо мне</h2>
+		<h2><?php
+				$idObj = get_category_by_slug('s-about');
+				$id = $idObj->term_id;
+				echo get_cat_name($id);
+				?></h2>
 		<div class="s-descr-wrap">
-			<div class="s-descr">Познакомимся ближе</div>
+			<div class="s-descr"><?php
+					echo category_description($id);
+					?></div>
 		</div>
 	</div>
 	<div class="section-content">
