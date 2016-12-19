@@ -14,3 +14,4 @@ function logo_widget_init() {
 	) );
 }
 add_action( 'widgets_init', 'logo_widget_init' );
+add_theme_support('post-thumbnails');

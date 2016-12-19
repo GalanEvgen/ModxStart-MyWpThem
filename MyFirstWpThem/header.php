@@ -77,9 +77,27 @@
 				</button>
 				<nav class="top-mnu">
 					<ul>
-						<li><a href="#about">Обо мне</a></li>
-						<li><a href="#resume">Резюме</a></li>
-						<li><a href="#portfolio">Портфолио</a></li>
+						<li>
+							<a href="#about">
+								<?php $idObj = get_category_by_slug('s-about');
+									$id = $idObj->term_id;
+									echo get_cat_name($id); ?>
+							</a>
+						</li>
+						<li>
+							<a href="#resume">
+								<?php $idObj = get_category_by_slug('s-resume');
+									$id = $idObj->term_id;
+									echo get_cat_name($id); ?>
+							</a>
+						</li>
+						<li>
+							<a href="#portfolio">
+								<?php $idObj = get_category_by_slug('s-portfolio');
+									$id = $idObj->term_id;
+									echo get_cat_name($id); ?>
+							</a>
+						</li>
 						<li><a href="#contacts">Контакты</a></li>
 					</ul>
 				</nav>

@@ -2,15 +2,18 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				&copy; 2016 Евгений Галан
+				&copy; 2016 <?php echo get_bloginfo('name'); ?>
 				<div class="social-wrap">
-					<ul>
-						<li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
-						<li><a href="#" target="_blank"><i class="fa fa-vk"></i></a></li>
-						<li><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
-						<li><a href="#" target="_blank"><i class="fa fa-github"></i></a></li>
-					</ul>
-				</div>
+						<ul>
+							<?php
+								$idObj = get_category_by_slug('socials');
+								$id = $idObj->term_id;
+								if ( have_posts() ) : query_posts('cat=' . $id);
+							while (have_posts()) : the_post(); ?>
+							<li><a href="<?php echo get_post_meta($post->ID, 'soc-url', true); ?>" target="_blank" title="<?php the_title(); ?>"><i class="fa <?php echo get_post_meta($post->ID, 'font-awesome', true); ?>"></i></a></li>
+									<? endwhile; endif; wp_reset_query(); ?>
+						</ul>
+					</div>
 			</div>
 		</div>
 	</div>

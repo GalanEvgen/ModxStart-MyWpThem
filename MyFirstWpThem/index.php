@@ -2,46 +2,67 @@
 
 <section id="about" class="s-about">
 	<div class="section-header">
-		<h2><?php
-				$idObj = get_category_by_slug('s-about');
+	
+		<h2>
+			<?php $idObj = get_category_by_slug('s-about');
 				$id = $idObj->term_id;
-				echo get_cat_name($id);
-				?></h2>
+				echo get_cat_name($id); ?>
+		</h2>
 		<div class="s-descr-wrap">
-			<div class="s-descr"><?php
-					echo category_description($id);
-					?></div>
+			<div class="s-descr">
+				<?php echo category_description($id); ?>
+			</div>
 		</div>
 	</div>
 	<div class="section-content">
 		<div class="container">
 			<div class="row">
+			
+				<?php if ( have_posts() ) : query_posts('p=11');
+					while (have_posts()) : the_post(); ?>
 				<div class="col-md-4 col-md-push-4 animation_1">
 					<div class="person">
-						<a href="img/photo.jpg" class="popup"><img src="img/photo.jpg" alt="Alt" /></a>
+						<?php if ( has_post_thumbnail() ) : ?>
+						<a class="popup" href="<?php
+							$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
+							echo $large_image_url[0]; ?>">
+							<?php the_post_thumbnail(array(220, 400)); ?>
+						</a>
+						<?php endif; ?>
 					</div>
 				</div>
 				<div class="col-md-4 col-md-pull-4 animation_2">
-					<h3>Немного о себе</h3>
-					<p>Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.</p>
-					<p>Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов.</p>
+					<h3>
+						<?php the_title(); ?>
+					</h3>
+					 <?php the_content(); ?>
 				</div>
+				<? endwhile; endif; wp_reset_query(); ?>
+				
 				<div class="col-md-4 animation_3 personal-last-block">
-					<h3>Персональная информация</h3>
-					<h2 class="personal-header">Евгений Галан</h2>
-					<ul>
-						<li>Cоздание сайтов: разработка дизайна, HTML верстка, посадка на CMS</li>
-						<li>День рождения: 1 февраля 1987 года</li>
-						<li>Номер телефона: +3 095 511 30 76</li>
-						<li>E-mail: <a href="mailto:e.galan@i.ua">e.galan@i.ua</a></li>
-						<li>Веб-сайт: <a href="//E.G-webdesign.ua" target="_blank">E.G-webdesign.ua</a></li>
-					</ul>
+					<?php if ( have_posts() ) : query_posts('p=14');
+						while (have_posts()) : the_post(); ?>
+						<h3>
+							<?php the_title(); ?>
+						</h3>
+						<h2 class="personal-header">
+							<?php echo get_bloginfo('name'); ?>
+						</h2>
+						<?php the_content(); ?>
+						<? endwhile; endif; wp_reset_query(); ?>
+					
 					<div class="social-wrap">
 						<ul>
-							<li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fa fa-vk"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fa fa-github"></i></a></li>
+							<?php $idObj = get_category_by_slug('socials');
+								$id = $idObj->term_id;
+								if ( have_posts() ) : query_posts('cat=' . $id);
+								while (have_posts()) : the_post(); ?>
+							<li>
+								<a href="<?php echo get_post_meta($post->ID, 'soc-url', true); ?>" target="_blank" title="<?php the_title(); ?>">
+									<i class="fa <?php echo get_post_meta($post->ID, 'font-awesome', true); ?>"></i>
+								</a>
+							</li>
+								<? endwhile; endif; wp_reset_query(); ?>
 						</ul>
 					</div>
 				</div>
@@ -51,9 +72,15 @@
 </section>
 <section id="resume" class="s-resume bg-light">
 	<div class="section-header">
-		<h2>Резюме</h2>
+		<h2>
+			<?php $idObj = get_category_by_slug('s-resume');
+				$id = $idObj->term_id;
+				echo get_cat_name($id); ?>
+		</h2>
 		<div class="s-descr-wrap">
-			<div class="s-descr">Мои знания и достижения</div>
+			<div class="s-descr">
+				<?php echo category_description($id); ?>
+			</div>
 		</div>
 	</div>
 	<div class="section-content">
@@ -61,42 +88,53 @@
 			<div class="row">
 				<div class="resume-container">
 					<div class="col-md-6 col-sm-6 left">
-						<h3>Работа</h3>
-						<div class="resume-icon"><i class="icon-basic-case"></i></div>
-						<div class="resume-item">
-									<div class="year">2013-2016</div>
-							<div class="resume-description"><strong>Инженер-конструктор</strong>ООО«Авангард»</div>
-							<p>Разработка дизайна, разработка конструкторской документации, сопровождение  изделия на производстве.</p>
+						<h3>
+							<?php $idObj = get_category_by_slug('s-work');
+								$id = $idObj->term_id;
+								echo get_cat_name($id); ?>
+						</h3>
+						<div class="resume-icon">
+							<i class="fa fa-steam" aria-hidden="true"></i>
 						</div>
+						
+						<?php if ( have_posts() ) : query_posts('cat=' . $id);
+							while (have_posts()) : the_post(); ?>
 						<div class="resume-item">
-							<div class="year">2012-2013</div>
-							<div class="resume-description">ООО«Евотерм технолоджи»<strong>Инженер-конструктор, проектировщик</strong></div>
-							<p>Разработка проектно-конструкторской документации, пусконаладка, монтаж .</p>
+							<div class="year">
+								<?php echo get_post_meta($post->ID, 'years', true); ?>
+							</div>
+							<div class="resume-description">
+								<?php echo get_post_meta($post->ID, 'resume-place', true); ?>
+								<strong><?php the_title(); ?></strong>
+							</div>
+							<?php the_content(); ?>
 						</div>
-						<div class="resume-item">
-							<div class="year">2012-2013</div>
-							<div class="resume-description">ПАО «Крюковский вагоностроительный завод»<strong>Инженер-конструктор</strong></div>
-							<p>Подготовка и разработка проектно-конструкторской документации, сбор и анализ необходимой для разработки технической информации, оптимизация металлоконструкций.</p>
-						</div>
+						<? endwhile; endif; wp_reset_query(); ?>
 					</div>
+					
 					<div class="col-md-6 col-sm-6 right">
-						<h3>Учеба</h3>
-						<div class="resume-icon"><i class="icon-basic-book-pen"></i></div>
-						<div class="resume-item">
-							<div class="year">2016</div>
-							<div class="resume-description"><strong>Front-end development course</strong>GoIT</div>
-							<p>Basic knowledge of Front-end development (HTML, CSS, JavaScript, jQuery)</p>
+						<h3>
+							<?php $idObj = get_category_by_slug('s-edu');
+								$id = $idObj->term_id;
+								echo get_cat_name($id); ?>
+						</h3>
+						<div class="resume-icon">
+							<i class="fa fa-book" aria-hidden="true"></i>
 						</div>
+						
+						<?php if ( have_posts() ) : query_posts('cat=' . $id);
+								while (have_posts()) : the_post(); ?>
 						<div class="resume-item">
-							<div class="year">2004-2012</div>
-							<div class="resume-description"><strong>Инженер-конструктор</strong>НТУУ КПИ</div>
-							<p>Кафедра динамики и прочности машин и сопротивления материалов -бакалавр инженерной механики, кафедра конструирования станков и машин-специалист по интеллектуальной собственности.</p>
+							<div class="year">
+								<?php echo get_post_meta($post->ID, 'years', true); ?>
+							</div>
+							<div class="resume-description">
+								<strong><?php the_title(); ?></strong>
+								<?php echo get_post_meta($post->ID, 'resume-place', true); ?>
+							</div>
+							<?php the_content(); ?>
 						</div>
-						<div class="resume-item">
-							<div class="year">2004-2012</div>
-							<div class="resume-description"><strong>Lorem ipsum dolor.</strong>Lorem ipsum.</div>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus facilis quod incidunt deleniti quibusdam explicabo cupiditate, officiis perspiciatis possimus blanditiis asperiores enim iure itaque minus!</p>
-						</div>
+						<? endwhile; endif; wp_reset_query(); ?>
 					</div>
 				</div>
 			</div>
@@ -105,9 +143,15 @@
 </section>
 <section id="portfolio" class="s_portfolio bg-dark">
 	<div class="section-header">
-		<h2>Портфолио</h2>
+		<h2>
+			<?php $idObj = get_category_by_slug('s-portfolio');
+				$id = $idObj->term_id;
+				echo get_cat_name($id); ?>
+		</h2>
 		<div class="s-descr-wrap">
-			<div class="s-descr">Мои последние работы</div>
+			<div class="s-descr">
+				<?php echo category_description($id); ?>
+			</div>
 		</div>
 	</div>
 	<div class="section-content">
@@ -283,17 +327,23 @@
 			<div class="row">
 				<div class="col-md-6 col-sm-6">
 					<div class="contact-box">
-						<div class="contacts-icon icon-basic-geolocalize-05"></div>
+						<div class="contacts-icon">
+							<i class="fa fa-map-marker" aria-hidden="true"></i>
+						</div>
 						<h3>Адрес:</h3>
 						<p>Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне.</p>
 					</div>
 					<div class="contact-box">
-						<div class="contacts-icon icon-basic-smartphone"></div>
+						<div class="contacts-icon">
+							<i class="fa fa-mobile" aria-hidden="true"></i>
+						</div>
 						<h3>Телефон:</h3>
 						<p>+3 095 511 30 76</p>
 					</div>
 					<div class="contact-box">
-						<div class="contacts-icon icon-basic-webpage-img-txt"></div>
+						<div class="contacts-icon">
+							<i class="fa fa-sitemap" aria-hidden="true"></i>
+						</div>
 						<h3>Веб-сайт:</h3>
 						<p><a href="//E.G-webdesign.ua" target="_blank">E.G-webdesign.ua</a></p>
 					</div>
