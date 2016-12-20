@@ -2,13 +2,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				&copy; 2016 <?php echo get_bloginfo('name'); ?>
+				&copy; <?php echo date("Y"); ?>  <?php echo get_bloginfo('name'); ?>
 				<div class="social-wrap">
 						<ul>
 							<?php
 								$idObj = get_category_by_slug('socials');
 								$id = $idObj->term_id;
-								if ( have_posts() ) : query_posts('cat=' . $id);
+								if ( have_posts() ) : query_posts('cat=4' . $id);
 							while (have_posts()) : the_post(); ?>
 							<li><a href="<?php echo get_post_meta($post->ID, 'soc-url', true); ?>" target="_blank" title="<?php the_title(); ?>"><i class="fa <?php echo get_post_meta($post->ID, 'font-awesome', true); ?>"></i></a></li>
 									<? endwhile; endif; wp_reset_query(); ?>
