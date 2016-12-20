@@ -19,3 +19,9 @@ Plugins:
 
 Inkscape(svg);
 Adobe Photoshop(jpg)
+
+Open server
+Word Press
+
+Brackets
+PhpStorm
