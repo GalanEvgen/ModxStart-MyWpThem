@@ -25,3 +25,7 @@ Word Press
 
 Brackets
 PhpStorm
+
+wp-admin
+user name- root
+password- root
